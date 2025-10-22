@@ -10,10 +10,10 @@ A guide to setting up a secure home VPN using Raspberry Pi 5, WireGuard (PiVPN) 
 ## Quick Setup
 
 ### Flash OS with Raspberry Pi Imager
-- Device: Raspberry Pi 5
-- OS: Raspberry Pi OS Lite (64-bit)
-- Advanced options:
-  - Hostname: raspberrypi (change hostname or keep default)
+- **Device**: Raspberry Pi 5
+- **OS**: Raspberry Pi OS Lite (64-bit)
+- **Advanced options**:
+  - Hostname: pivpn (change hostname or keep default)
   - Enable SSH (key-only)
   - Username: pi (change username or keep default)
   - Password: your_password
@@ -29,7 +29,7 @@ sudo apt update && sudo apt full-upgrade -y && sudo reboot
 ```
 
 ### Secure SSH Access
-Generate a key pair and disable password logins (run these **on your compter not the pi**):
+Generate a key pair and disable password logins (run these **on your compter**):
 ```bash
 ssh-keygen -t ed25519
 ssh-copy-id <username>@<hostname>.local
@@ -47,7 +47,8 @@ sudo systemctl status fail2ban --no-pager
 ```
 
 ### Assign Static IP
-**via terminal**
+**Via terminal**
+
 Edit network configuration:
 ```bash
 sudo nano /etc/dhcpcd.conf
@@ -63,7 +64,7 @@ Reboot the Pi:
 ```bash
 sudo reboot
 ```
-**via router**
+**Via router**
 [![Assign Static PI via Router](images/address-reservation.png)](images/address-reservation.png)
 
 
