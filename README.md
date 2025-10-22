@@ -47,7 +47,7 @@ sudo systemctl status fail2ban --no-pager
 ```
 
 ### Assign Static IP
-via terminal: 
+**via terminal**
 Edit network configuration:
 ```bash
 sudo nano /etc/dhcpcd.conf
@@ -63,7 +63,8 @@ Reboot the Pi:
 ```bash
 sudo reboot
 ```
-via router:
+**via router**
+[![Assign Static PI via Router](images/address-reservation.png)](images/address-reservation.png)
 
 
 ### Install WireGuard via PiVPN & Enable NAT and Routing
@@ -76,8 +77,7 @@ pivpn -d
 ```
 
 ### Set up DuckDNS Dynamic DNS
-Create an account on [duckdns.org](https://www.duckdns.org).  
-Then:
+Create an account on [duckdns.org](https://www.duckdns.org). Then:
 ```bash
 mkdir -p ~/duckdns && cd ~/duckdns
 nano duck.sh
@@ -107,6 +107,7 @@ After 5 minutes, confirm your IP at [DuckDNS Domains](https://www.duckdns.org/do
 
 ### Router Port Forwarding
 Forward UDP 51820 → 192.168.0.10:51820
+[![Router Port Forwarding](images/port-forwarding.png)](images/port-forwarding.png)
 
 ### Security Tools: UFW Firewall
 ```bash
@@ -165,5 +166,6 @@ sudo systemctl restart wg-quick@wg0
 - [PiVPN Installer](https://pivpn.io)
 - [WireGuard Docs](https://www.wireguard.com/)
 - [DuckDNS](https://www.duckdns.org/)
+
 
 **Last Updated:** October 2025
