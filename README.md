@@ -15,81 +15,155 @@ A guide to setting up a secure home VPN using Raspberry Pi 5, WireGuard (PiVPN) 
 - Advanced options:
   - Hostname: raspberrypi (change hostname or keep default)
   - Enable SSH (key-only)
-  - Username: pi
+  - Username: pi (change username or keep default)
   - Password: your_password
   - (Optional) Configure Wi-Fi
 - Write and verify image, then eject SD card.
 
-### SSH & Update
+### Boot, connect to pi via SSH & update packages
+Insert the SD card, power on the Pi, and connect via Ethernet.  
+From your terminal (Windows or Git Bash):
 ```bash
-ssh pi@<hostname>.local
-sudo apt update && sudo apt full-upgrade -y
-sudo reboot
+ssh <username>@<hostname>.local
+sudo apt update && sudo apt full-upgrade -y && sudo reboot
 ```
 
-### Secure SSH
+### Secure SSH Access
+Generate a key pair and disable password logins (run these **on your compter not the pi**):
 ```bash
 ssh-keygen -t ed25519
-ssh-copy-id pi@<hostname>.local
+ssh-copy-id <username>@<hostname>.local
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 sudo nano /etc/ssh/sshd_config
 # set PasswordAuthentication no
 sudo systemctl restart ssh
 ```
 
-### Security Tools & Firewall
+### Install Security Tools
 ```bash
-sudo apt install unattended-upgrades fail2ban ufw -y
-sudo dpkg-reconfigure --priority=low unattended-upgrades
+sudo apt install unattended-upgrades fail2ban -y
+sudo systemctl enable --now fail2ban
+sudo systemctl status fail2ban --no-pager
+```
+
+### Assign Static IP
+via terminal: 
+Edit network configuration:
+```bash
+sudo nano /etc/dhcpcd.conf
+```
+Add:
+```
+interface eth0
+static ip_address=192.168.0.10/24
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.10
+```
+Reboot the Pi:
+```bash
+sudo reboot
+```
+via router:
+
+
+### Install WireGuard via PiVPN & Enable NAT and Routing
+```bash
+curl -L https://install.pivpn.io | bash
+# Choose WireGuard, port 51820/UDP, DNS of your choice, enable unattended upgrades
+# Allow PiVPN to manage NAT and routing automatically when prompted
+sudo systemctl status wg-quick@wg0
+pivpn -d
+```
+
+### Set up DuckDNS Dynamic DNS
+Create an account on [duckdns.org](https://www.duckdns.org).  
+Then:
+```bash
+mkdir -p ~/duckdns && cd ~/duckdns
+nano duck.sh
+```
+Paste and update with your domain/token:
+```bash
+echo url="https://www.duckdns.org/update?domains=YOURDOMAIN&token=YOURTOKEN&ip=" | curl -k -o ~/duckdns/duck.log -K -
+```
+Make executable:
+```bash
+chmod 700 duck.sh
+```
+Open cron:
+```bash
+crontab -e
+```
+Add:
+```
+*/5 * * * * ~/duckdns/duck.sh >/dev/null 2>&1
+```
+Verify:
+```bash
+cat ~/duckdns/duck.log
+```
+Should return `ok`.  
+After 5 minutes, confirm your IP at [DuckDNS Domains](https://www.duckdns.org/domains).
+
+### Router Port Forwarding
+Forward UDP 51820 → 192.168.0.10:51820
+
+### Security Tools: UFW Firewall
+```bash
+sudo apt install ufw -y
 sudo ufw allow 22/tcp
 sudo ufw allow 51820/udp
 sudo ufw enable
+sudo ufw status
 ```
 
-### Static IP
-```bash
-sudo nano /etc/dhcpcd.conf
-# interface eth0
-# static ip_address=192.168.1.10/24
-# static routers=192.168.1.1
-# static domain_name_servers=1.1.1.1 8.8.8.8
-sudo reboot
-```
-
-### WireGuard via PiVPN
-```bash
-curl -L https://install.pivpn.io | bash
-# Choose WireGuard, port 51820/UDP, DNS Cloudflare, enable unattended upgrades
-```
-
-### DuckDNS Dynamic DNS
-```bash
-curl "https://www.duckdns.org/update?domains=SUBDOMAIN&token=YOURTOKEN&ip="
-crontab -e
-# */5 * * * * /usr/bin/curl -s "https://www.duckdns.org/update?domains=SUBDOMAIN&token=YOURTOKEN&ip=" >/dev/null 2>&1
-```
-
-### Router Port Forwarding
-Forward UDP 51820 → 192.168.1.10:51820
-
-### Add Client Profiles
+### Create VPN Client Profile(s)
 ```bash
 pivpn add
 pivpn -qr
 ```
 
-### Verify Connection
-Check WireGuard status 
-```bash
-sudo wg show
-```
-Visit [whatismyipaddress.com](https://whatismyipaddress.com) to confirm your VPN IP.
+### Test and Verify VPN Connection
+1. Disconnect from your home Wi-Fi.  
+2. Connect to an external network (LTE or public Wi-Fi).  
+3. Activate the VPN connection in the WireGuard app.  
+4. Verify the tunnel:
+   - On the Raspberry Pi, check active peers:
+     ```bash
+     sudo wg show
+     ```
+   - On the client device, visit [whatismyipaddress.com](https://www.whatismyipaddress.com) — it should now display your 'home network’s public IP'.
 
 ## Troubleshooting
-- If the SD card fails to write, erase and re-flash it using Raspberry Pi Imager’s 'Erase' option.
-- If SSH via IP doesn’t work, use the hostname instead: ssh pi@<hostname>.local.
+### SD Card Write Error
+Use Raspberry Pi Imager → *Erase* option, then re-flash the image.
+
+### SSH Connection Issues
+If direct IP fails, use the hostname instead:
+```bash
+ssh username@<hostname>.local
+```
+
+### VPN Connected but No Internet
+Check UFW settings:
+```bash
+sudo ufw status
+sudo nano /etc/default/ufw
+```
+Set:
+```
+DEFAULT_FORWARD_POLICY="ACCEPT"
+```
+Then reload:
+```bash
+sudo ufw disable && sudo ufw enable
+sudo systemctl restart wg-quick@wg0
+```
 
 ## Resources
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 - [PiVPN Installer](https://pivpn.io)
 - [WireGuard Docs](https://www.wireguard.com/)
 - [DuckDNS](https://www.duckdns.org/)
+
+**Last Updated:** October 2025
