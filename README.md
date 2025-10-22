@@ -168,5 +168,5 @@ sudo systemctl restart wg-quick@wg0
 - [WireGuard Docs](https://www.wireguard.com/)
 - [DuckDNS](https://www.duckdns.org/)
 
-
+---
 **Last Updated:** October 2025
