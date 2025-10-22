@@ -162,11 +162,24 @@ sudo ufw disable && sudo ufw enable
 sudo systemctl restart wg-quick@wg0
 ```
 
+## Security Measures Implemented
+
+| **Category**           | **Control** |
+|-------------------------|-------------|
+| **Authentication**      | SSH key-based login only |
+| **Firewall**            | UFW allowing only ports `22/tcp` and `51820/udp` |
+| **Intrusion Prevention**| Fail2Ban blocking SSH brute-force attempts |
+| **Updates**             | Automated via Unattended Upgrades |
+| **VPN**                 | Encrypted tunnels via WireGuard |
+| **Dynamic DNS**         | DuckDNS script updating IP every 5 minutes |
+| **Optional**            | Pi-hole for DNS filtering |
+
 ## Resources
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 - [PiVPN Installer](https://pivpn.io)
 - [WireGuard Docs](https://www.wireguard.com/)
 - [DuckDNS](https://www.duckdns.org/)
+
 
 ---
 **Last Updated:** October 2025
