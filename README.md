@@ -178,27 +178,26 @@ This ensures stable connections and unique encryption keys for every client.
   - Click **Activate** to connect.
 
 ### 11. Test and Verify VPN Connection
-1. Disconnect from your home Wi-Fi.  
-2. Connect to an external network (LTE or public Wi-Fi).  
-3. Activate the VPN connection in the WireGuard app.  
-4. Verify the tunnel:
+- Disconnect from your home Wi-Fi and connect to an external network (LTE or public Wi-Fi).  
+- Activate the VPN connection in the WireGuard app.  
+- Verify the tunnel:
    - On the Raspberry Pi, check active peers:
      ```bash
      sudo wg show
      ```
-   - On the client device, visit [whatismyipaddress.com](https://www.whatismyipaddress.com) — it should now display your 'home network’s public IP'.
+   - On the client device, visit [whatismyipaddress.com](https://www.whatismyipaddress.com) (it should now display your 'home network’s public IP) .
 
 ## 🛠️Troubleshooting
-#### SD Card Write Error
+#### - SD Card Write Error
 Use Raspberry Pi Imager → *Erase* option, then re-flash the image.
 
-#### SSH Connection Issues
+#### - SSH Connection Issues
 If direct IP fails, use the hostname instead:
 ```bash
 ssh username@<hostname>.local
 ```
 
-#### VPN Connected but No Internet
+#### - VPN Connected but No Internet
 Check UFW settings:
 ```bash
 sudo ufw status
