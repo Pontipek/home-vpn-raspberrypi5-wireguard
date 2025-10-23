@@ -1,15 +1,16 @@
 # Home VPN with Raspberry Pi 5 + WireGuard (PiVPN)
 
----
 ## 📑 Table of Contents
 
 - [Raspberry Pi Overview](#overview)
 - [System Diagram](#%EF%B8%8Fsystem-diagram)
-- [Tools and Environment](#)
-- [Quick Setup](#quick-setup)
+- [Tools and Environment](#tools-and-environment)
+- [Quick Setup](#%EF%B8%8Fquick-setup)
 - [Troubleshooting](#%EF%B8%8Ftroubleshooting)
 - [Security Measures Implemented](#security-measures-implemented)
 - [Resources](#resources)
+
+---
 
 ## 🌐Overview
 A guide to setting up a secure home VPN using Raspberry Pi 5, WireGuard (PiVPN) with DuckDNS, UFW, and Fail2Ban, complete with setup scripts, documentation, and diagrams.
