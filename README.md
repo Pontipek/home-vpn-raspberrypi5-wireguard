@@ -125,13 +125,13 @@ This ensures stable connections and unique encryption keys for every client.
 
 #### For Mobile (QR Code Method)
 1. On your Raspberry Pi, create a new client:
-   ```bash
+  ```bash
    pivpn add
-   ```
+  ```
 2. Display its QR code:
-   ```bash
+  ```bash
    pivpn -qr
-   ```
+  ```
 3. On your phone, open the **WireGuard app** → tap **Add Tunnel → Scan from QR Code**.
 4. Scan the generated QR code to import the profile.
 5. Tap **Activate** to connect.
@@ -148,7 +148,7 @@ This ensures stable connections and unique encryption keys for every client.
 
   From your Windows PowerShell or Command Prompt:
   ```bash
-    scp pi@pivpn.local:/home/pi/configs/client1.conf C:\Users\<your_username>\Downloads\
+  scp pi@pivpn.local:/home/pi/configs/client1.conf C:\Users\<your_username>\Downloads\
   ```
   *(Replace `client1.conf` with your actual filename.)*
 
@@ -166,7 +166,7 @@ This ensures stable connections and unique encryption keys for every client.
   Click **Quickconnect** and accept the host key if prompted.  
   In the **right pane**, navigate to:
   ```
-    /home/pi/configs/
+  /home/pi/configs/
   ```
   Drag the `.conf` file from the **right pane (Pi)** → **left pane (Windows)**.  
   The file will appear on your PC once the transfer completes.
@@ -182,9 +182,9 @@ This ensures stable connections and unique encryption keys for every client.
 - Activate the VPN connection in the WireGuard app.  
 - Verify the tunnel:
    - On the Raspberry Pi, check active peers:
-     ```bash
-     sudo wg show
-     ```
+    ```bash
+    sudo wg show
+    ```
    - On the client device, visit [whatismyipaddress.com](https://www.whatismyipaddress.com) (it should now display your 'home network’s public IP) .
 
 ## 🛠️Troubleshooting
@@ -193,20 +193,24 @@ This ensures stable connections and unique encryption keys for every client.
 
 #### SSH Connection Issues
   If direct IP fails, use the hostname instead:
+
     ```bash
       ssh username@<hostname>.local
     ```
 #### VPN Connected but No Internet
   Check UFW settings:
+
     ```bash
       sudo ufw status
       sudo nano /etc/default/ufw
     ```
   Set:
+
     ```
       DEFAULT_FORWARD_POLICY="ACCEPT"
     ```
   Then reload:
+
     ```bash
       sudo ufw disable && sudo ufw enable
       sudo systemctl restart wg-quick@wg0
