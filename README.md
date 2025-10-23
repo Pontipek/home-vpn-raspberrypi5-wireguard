@@ -1,4 +1,4 @@
-# Home VPN with Raspberry Pi 5 + WireGuard (PiVPN)
+# Home VPN with Raspberry Pi 5 + WireGuard (PiVPN) 🍓🔐
 
 ## 📑 Table of Contents
 
