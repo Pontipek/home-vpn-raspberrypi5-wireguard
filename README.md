@@ -189,16 +189,16 @@ The file will appear on your PC once the transfer completes.
    - On the client device, visit [whatismyipaddress.com](https://www.whatismyipaddress.com) — it should now display your 'home network’s public IP'.
 
 ## Troubleshooting
-### SD Card Write Error
+#### SD Card Write Error
 Use Raspberry Pi Imager → *Erase* option, then re-flash the image.
 
-### SSH Connection Issues
+#### SSH Connection Issues
 If direct IP fails, use the hostname instead:
 ```bash
 ssh username@<hostname>.local
 ```
 
-### VPN Connected but No Internet
+#### VPN Connected but No Internet
 Check UFW settings:
 ```bash
 sudo ufw status
