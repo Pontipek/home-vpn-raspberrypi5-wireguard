@@ -20,7 +20,16 @@ A guide to setting up a secure home VPN using Raspberry Pi 5, WireGuard (PiVPN) 
 [![Raspberry Pi WireGuard VPN Diagram](images/system-diagram.png)](images/system-diagram.png)
 
 ## 💻Tools and Environment
- 
+| **Component** | **Description** |
+|----------------|-----------------|
+| **Hardware** | Raspberry Pi 5 (8 GB RAM) + microSD card (≥32 GB) + Ethernet connection |
+| **Operating System** | Raspberry Pi OS Lite (64-bit) |
+| **VPN Software** | WireGuard via PiVPN |
+| **Security Tools** | UFW Firewall, Fail2Ban, Unattended Upgrades |
+| **Dynamic DNS** | DuckDNS |
+| **File Transfer Tools** | SCP or FileZilla (SFTP) |
+| **Client Devices** | Laptop, Mobile, Tablet (WireGuard app) |
+
 ---
 
 ## ⚙️Quick Setup
