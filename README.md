@@ -212,6 +212,16 @@ This ensures stable connections and unique encryption keys for every client.
     ```
    - On the client device, visit [whatismyipaddress.com](https://www.whatismyipaddress.com) (it should now display your 'home network’s public IP) .
 
+### 12. Monitor & Backup VPN Configuration
+Regularly check your VPN logs and keep secure backups of your configuration files:
+```bash
+# Monitor VPN Logs
+sudo journalctl -u wg-quick@wg0 -n 50
+sudo wg show
+
+# Backup your WireGuard configuration, including /etc/wireguard/, and rotate client keys periodically
+sudo cp -r /etc/wireguard /home/pi/wireguard-backup
+```
 ---
 
 ## 🛠️Troubleshooting
