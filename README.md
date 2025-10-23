@@ -168,7 +168,7 @@ In the **right pane**, navigate to:
 ```
 /home/pi/configs/
 ```
-Drag the `.conf` file (e.g., `client1.conf`) from the **right pane (Pi)** → **left pane (Windows)**.  
+Drag the `.conf` file from the **right pane (Pi)** → **left pane (Windows)**.  
 The file will appear on your PC once the transfer completes.
 
 3. Import the Config in WireGuard (Windows)
@@ -224,7 +224,6 @@ sudo systemctl restart wg-quick@wg0
 | **Updates**             | Automated via Unattended Upgrades |
 | **VPN**                 | Encrypted tunnels via WireGuard |
 | **Dynamic DNS**         | DuckDNS script updating IP every 5 minutes |
-| **Optional**            | Pi-hole for DNS filtering |
 
 ## Resources
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
