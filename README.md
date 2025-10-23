@@ -172,10 +172,10 @@ This ensures stable connections and unique encryption keys for every client.
   The file will appear on your PC once the transfer completes.
 
 3. Import the Config in WireGuard (Windows)
-- Open the **WireGuard app**.  
-- Click **Add Tunnel → Import Tunnel(s) from File**.  
-- Select the `.conf` file you transferred.  
-- Click **Activate** to connect.
+  - Open the **WireGuard app**.  
+  - Click **Add Tunnel → Import Tunnel(s) from File**.  
+  - Select the `.conf` file you transferred.  
+  - Click **Activate** to connect.
 
 ### 11. Test and Verify VPN Connection
 1. Disconnect from your home Wi-Fi.  
