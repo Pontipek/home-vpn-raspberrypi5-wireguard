@@ -119,11 +119,63 @@ sudo ufw enable
 sudo ufw status
 ```
 
-### Create VPN Client Profile(s)
+### Create VPN Client Profiles (One Per Device)
+Each device (phone, computer, tablet, etc.) needs its own VPN profile.  
+This ensures stable connections and unique encryption keys for every client.
+
+#### For Mobile (QR Code Method)
+1. On your Raspberry Pi, create a new client:
+   ```bash
+   pivpn add
+   ```
+2. Display its QR code:
+   ```bash
+   pivpn -qr
+   ```
+3. On your phone, open the **WireGuard app** → tap **Add Tunnel → Scan from QR Code**.
+4. Scan the generated QR code to import the profile.
+5. Tap **Activate** to connect.
+
+
+#### For Computer (Config File Method)
+1. On your Raspberry Pi, create a client for your computer:
+   ```bash
+   pivpn add
+   ```
+2. Your configuration file will be saved in **/home/pi/configs/**. Transfer the config file to Windows using one of these methods:
+
+- **Option 1** – Command Line (SCP)
+
+From your Windows PowerShell or Command Prompt:
 ```bash
-pivpn add
-pivpn -qr
+scp pi@pivpn.local:/home/pi/configs/client1.conf C:\Users\<your_username>\Downloads\
 ```
+*(Replace `client1.conf` with your actual filename.)*
+
+- **Option 2** – FileZilla (Graphical SFTP)
+
+Install **[FileZilla Client](https://filezilla-project.org)** and open it.
+
+| Field | What to Enter | Example |
+|--------|----------------|----------|
+| **Host** | `sftp://<your-pi-IP>` | `sftp://192.168.0.10` |
+| **Username** | Your Pi username | `pi` |
+| **Password** | Your Pi password | (the one you set) |
+| **Port** | `22` | 22 |
+
+Click **Quickconnect** and accept the host key if prompted.  
+In the **right pane**, navigate to:
+```
+/home/pi/configs/
+```
+Drag the `.conf` file (e.g., `client1.conf`) from the **right pane (Pi)** → **left pane (Windows)**.  
+The file will appear on your PC once the transfer completes.
+
+3. Import the Config in WireGuard (Windows)
+- Open the **WireGuard app**.  
+- Click **Add Tunnel → Import Tunnel(s) from File**.  
+- Select the `.conf` file you transferred.  
+- Click **Activate** to connect.
 
 ### Test and Verify VPN Connection
 1. Disconnect from your home Wi-Fi.  
