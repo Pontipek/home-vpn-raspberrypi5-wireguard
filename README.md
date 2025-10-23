@@ -193,27 +193,23 @@ This ensures stable connections and unique encryption keys for every client.
 
 #### SSH Connection Issues
   If direct IP fails, use the hostname instead:
-
     ```bash
-      ssh username@<hostname>.local
+    ssh username@<hostname>.local
     ```
 #### VPN Connected but No Internet
   Check UFW settings:
-
     ```bash
-      sudo ufw status
-      sudo nano /etc/default/ufw
+    sudo ufw status
+    sudo nano /etc/default/ufw
     ```
   Set:
-
     ```
-      DEFAULT_FORWARD_POLICY="ACCEPT"
+    DEFAULT_FORWARD_POLICY="ACCEPT"
     ```
   Then reload:
-
     ```bash
-      sudo ufw disable && sudo ufw enable
-      sudo systemctl restart wg-quick@wg0
+    sudo ufw disable && sudo ufw enable
+    sudo systemctl restart wg-quick@wg0
     ```
 
 ## 🔒Security Measures Implemented
