@@ -146,30 +146,30 @@ This ensures stable connections and unique encryption keys for every client.
 
 - **Option 1** – Command Line (SCP)
 
-From your Windows PowerShell or Command Prompt:
-```bash
-scp pi@pivpn.local:/home/pi/configs/client1.conf C:\Users\<your_username>\Downloads\
-```
-*(Replace `client1.conf` with your actual filename.)*
+  From your Windows PowerShell or Command Prompt:
+  ```bash
+    scp pi@pivpn.local:/home/pi/configs/client1.conf C:\Users\<your_username>\Downloads\
+  ```
+  *(Replace `client1.conf` with your actual filename.)*
 
 - **Option 2** – FileZilla (Graphical SFTP)
 
-Install **[FileZilla Client](https://filezilla-project.org)** and open it.
+  Install **[FileZilla Client](https://filezilla-project.org)** and open it.
 
-| Field | What to Enter | Example |
-|--------|----------------|----------|
-| **Host** | `sftp://<your-pi-IP>` | `sftp://192.168.0.10` |
-| **Username** | Your Pi username | `pi` |
-| **Password** | Your Pi password | (the one you set) |
-| **Port** | `22` | 22 |
+  | Field | What to Enter | Example |
+  |--------|----------------|----------|
+  | **Host** | `sftp://<your-pi-IP>` | `sftp://192.168.0.10` |
+  | **Username** | Your Pi username | `pi` |
+  | **Password** | Your Pi password | (the one you set) |
+  | **Port** | `22` | 22 |
 
-Click **Quickconnect** and accept the host key if prompted.  
-In the **right pane**, navigate to:
-```
-/home/pi/configs/
-```
-Drag the `.conf` file from the **right pane (Pi)** → **left pane (Windows)**.  
-The file will appear on your PC once the transfer completes.
+  Click **Quickconnect** and accept the host key if prompted.  
+  In the **right pane**, navigate to:
+  ```
+    /home/pi/configs/
+  ```
+  Drag the `.conf` file from the **right pane (Pi)** → **left pane (Windows)**.  
+  The file will appear on your PC once the transfer completes.
 
 3. Import the Config in WireGuard (Windows)
 - Open the **WireGuard app**.  
