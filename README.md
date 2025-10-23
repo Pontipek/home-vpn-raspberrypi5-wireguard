@@ -9,7 +9,7 @@ A guide to setting up a secure home VPN using Raspberry Pi 5, WireGuard (PiVPN) 
 
 ## ⚡Quick Setup
 
-### Flash OS with Raspberry Pi Imager
+### 1. Flash OS with Raspberry Pi Imager
 - **Device**: Raspberry Pi 5
 - **OS**: Raspberry Pi OS Lite (64-bit)
 - **Advanced options**:
@@ -20,7 +20,7 @@ A guide to setting up a secure home VPN using Raspberry Pi 5, WireGuard (PiVPN) 
   - (Optional) Configure Wi-Fi
 - Write and verify image, then eject SD card.
 
-### Boot, connect to pi via SSH & update packages
+### 2. Boot, connect to pi via SSH & update packages
 Insert the SD card, power on the Pi, and connect via Ethernet.  
 From your terminal (Windows or Git Bash):
 ```bash
@@ -28,7 +28,7 @@ ssh <username>@<hostname>.local
 sudo apt update && sudo apt full-upgrade -y && sudo reboot
 ```
 
-### Secure SSH Access
+### 3. Secure SSH Access
 Generate a key pair and disable password logins (run these **on your compter**):
 ```bash
 ssh-keygen -t ed25519
@@ -39,14 +39,14 @@ sudo nano /etc/ssh/sshd_config
 sudo systemctl restart ssh
 ```
 
-### Install Security Tools
+### 4. Install Security Tools
 ```bash
 sudo apt install unattended-upgrades fail2ban -y
 sudo systemctl enable --now fail2ban
 sudo systemctl status fail2ban --no-pager
 ```
 
-### Assign Static IP
+### 5. Assign Static IP
 **Via terminal**
 
 Edit network configuration:
@@ -68,7 +68,7 @@ sudo reboot
 [![Assign Static PI via Router](images/address-reservation.png)](images/address-reservation.png)
 
 
-### Install WireGuard via PiVPN & Enable NAT and Routing
+### 6. Install WireGuard via PiVPN & Enable NAT and Routing
 ```bash
 curl -L https://install.pivpn.io | bash
 # Choose WireGuard, port 51820/UDP, DNS of your choice, enable unattended upgrades
@@ -77,7 +77,7 @@ sudo systemctl status wg-quick@wg0
 pivpn -d
 ```
 
-### Set up DuckDNS Dynamic DNS
+### 7. Set up DuckDNS Dynamic DNS
 Create an account on [duckdns.org](https://www.duckdns.org). Then:
 ```bash
 mkdir -p ~/duckdns && cd ~/duckdns
@@ -106,11 +106,11 @@ cat ~/duckdns/duck.log
 Should return `ok`.  
 After 5 minutes, confirm your IP at [DuckDNS Domains](https://www.duckdns.org/domains).
 
-### Router Port Forwarding
+### 8. Router Port Forwarding
 Forward UDP 51820 → 192.168.0.10:51820
 [![Router Port Forwarding](images/port-forwarding.png)](images/port-forwarding.png)
 
-### Security Tools: UFW Firewall
+### 9. Security Tools: UFW Firewall
 ```bash
 sudo apt install ufw -y
 sudo ufw allow 22/tcp
@@ -119,7 +119,7 @@ sudo ufw enable
 sudo ufw status
 ```
 
-### Create VPN Client Profiles (One Per Device)
+### 10. Create VPN Client Profiles (One Per Device)
 Each device (phone, computer, tablet, etc.) needs its own VPN profile.  
 This ensures stable connections and unique encryption keys for every client.
 
@@ -177,7 +177,7 @@ The file will appear on your PC once the transfer completes.
 - Select the `.conf` file you transferred.  
 - Click **Activate** to connect.
 
-### Test and Verify VPN Connection
+### 11. Test and Verify VPN Connection
 1. Disconnect from your home Wi-Fi.  
 2. Connect to an external network (LTE or public Wi-Fi).  
 3. Activate the VPN connection in the WireGuard app.  
