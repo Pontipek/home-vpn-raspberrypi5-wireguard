@@ -192,25 +192,25 @@ This ensures stable connections and unique encryption keys for every client.
   Use Raspberry Pi Imager → *Erase* option, then re-flash the image.
 
 #### SSH Connection Issues
-  If direct IP fails, use the hostname instead:
-    ```bash
-    ssh username@<hostname>.local
-    ```
+If direct IP fails, use the hostname instead:
+```bash
+ssh username@<hostname>.local
+```
 #### VPN Connected but No Internet
-  Check UFW settings:
-    ```bash
-    sudo ufw status
-    sudo nano /etc/default/ufw
-    ```
-  Set:
-    ```
-    DEFAULT_FORWARD_POLICY="ACCEPT"
-    ```
-  Then reload:
-    ```bash
-    sudo ufw disable && sudo ufw enable
-    sudo systemctl restart wg-quick@wg0
-    ```
+Check UFW settings:
+```bash
+sudo ufw status
+sudo nano /etc/default/ufw
+```
+Set:
+```
+DEFAULT_FORWARD_POLICY="ACCEPT"
+```
+Then reload:
+```bash
+sudo ufw disable && sudo ufw enable
+sudo systemctl restart wg-quick@wg0
+```
 
 ## 🔒Security Measures Implemented
 
